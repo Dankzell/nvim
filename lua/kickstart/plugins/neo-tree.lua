@@ -11,10 +11,13 @@ return {
   },
   lazy = false,
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>e', '<cmd>Neotree toggle <CR>', desc = 'Explorer', silent = true },
+    { '<leader>fe', '<cmd>Neotree reveal <CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>fe', '<cmd>Neotree reveal <CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
     filesystem = {
+      filtered_items = { hide_dotfiles = false },
       window = {
         mappings = {
           ['\\'] = 'close_window',
