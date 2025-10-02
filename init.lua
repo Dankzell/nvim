@@ -128,6 +128,7 @@ vim.schedule(function()
 end)
 
 -- Enable break indent
+vim.o.showbreak = '↪'
 vim.o.breakindent = true
 
 -- Save undo history
@@ -159,7 +160,7 @@ vim.o.splitbelow = true
 --   See `:help lua-options`
 --   and `:help lua-options-guide`
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -972,6 +973,11 @@ require('lazy').setup({
           neotree = true,
           gitsigns = true,
           cmp = true,
+          indent_blankline = {
+            enabled = true,
+            scope_color = 'peach',
+            colored_indent_levels = true,
+          },
         },
       }
       vim.cmd.colorscheme 'catppuccin'
