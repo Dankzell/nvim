@@ -100,6 +100,9 @@ vim.g.have_nerd_font = false
 
 -- Make line numbers default
 vim.o.number = true
+vim.o.relativenumber = true
+vim.o.cursorline = true
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#fab387', bold = true }) -- peach
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 -- vim.o.relativenumber = true
@@ -419,6 +422,8 @@ require('lazy').setup({
               ['<c-enter>'] = 'to_fuzzy_refine',
               ['<C-j>'] = require('telescope.actions').move_selection_next,
               ['<C-k>'] = require('telescope.actions').move_selection_previous,
+              ['<C-s>'] = require('telescope.actions').file_vsplit,
+              ['<C-h>'] = require('telescope.actions').file_vsplit,
             },
             n = {
               ['<C-j>'] = require('telescope.actions').move_selection_next,
