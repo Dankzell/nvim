@@ -27,7 +27,6 @@ What is Kickstart?
   Kickstart.nvim is a starting point for your own configuration.
     The goal is that you can read every line of code, top-to-bottom, understand
     what your configuration is doing, and modify it to suit your needs.
-
     Once you've done that, you can start exploring, configuring and tinkering to
     make Neovim your own! That might mean leaving Kickstart just the way it is for a while
     or immediately breaking it into modular pieces. It's up to you!
@@ -427,7 +426,7 @@ require('lazy').setup({
               ['<C-j>'] = require('telescope.actions').move_selection_next,
               ['<C-k>'] = require('telescope.actions').move_selection_previous,
               ['<C-s>'] = require('telescope.actions').file_vsplit,
-              ['<C-h>'] = require('telescope.actions').file_vsplit,
+              ['<C-h>'] = require('telescope.actions').file_split,
             },
             n = {
               ['<C-j>'] = require('telescope.actions').move_selection_next,
@@ -459,6 +458,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      -- vim.keymap.set('n', '<leader><C-tab', builtin.nex)
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -995,7 +995,8 @@ require('lazy').setup({
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
+    'mini.nvim/mini.nvim',
+    version = '*',
     config = function()
       -- Better Around/Inside textobjects
       --
