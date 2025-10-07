@@ -12,11 +12,11 @@ return {
 -- `[count]gbc` - Toggles the number of line given as a prefix-count using blockwise
 -- `gc[count]{motion}` - (Op-pending) Toggles the region using linewise comment
 -- `gb[count]{motion}` - (Op-pending) Toggles the region using blockwise comment
---
+
 -- Visual mode
 -- `gc` - Toggles the region using linewise comment
 -- `gb` - Toggles the region using blockwise comment
---
+
 -- Extra
 -- `gco` - Insert comment to the next line and enters INSERT mode
 -- `gcO` - Insert comment to the previous line and enters INSERT mode
