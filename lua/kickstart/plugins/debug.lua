@@ -22,8 +22,15 @@ return {
     'jay-babu/mason-nvim-dap.nvim',
 
     -- Add your own debuggers here
-    'leoluz/nvim-dap-go',
+    -- 'leoluz/nvim-dap-go',
+
+    -- Telecope integration
+    'nvim-telescope/telescope-dap.nvim',
+
+    -- Virtual text
+    'theHamsta/nvim-dap-virtual-text',
   },
+
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
     {
@@ -76,7 +83,17 @@ return {
       end,
       desc = 'Debug: See last session result.',
     },
+
+    -- Toggle the Virtual text mode
+    {
+      '<leader>tv',
+      function()
+        require('nvim-dap-virtual-text').toggle()
+      end,
+      desc = '[T]oggle DAP [V]irtual text',
+    },
   },
+
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
@@ -94,7 +111,10 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
+        -- 'delve',
+        'codelldb',
+        'bash',
+        'python',
       },
     }
 
@@ -120,29 +140,78 @@ return {
       },
     }
 
+    pcall(require('telescope').load_extension, 'dap')
+
+    -- ---- C/C++ via codelldb (from Mason install path) --------------------------
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        command = 'codelldb', -- let Mason/your PATH resolve it
+        args = { '--port', '${port}' },
+      },
+    }
+
+    dap.configurations.cpp = {
+      {
+        name = 'Launch (codelldb)',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+      },
+    }
+    dap.configurations.c = dap.configurations.cpp
+
     -- Change breakpoint icons
-    -- vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
-    -- vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
-    -- local breakpoint_icons = vim.g.have_nerd_font
-    --     and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-    --   or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
-    -- for type, icon in pairs(breakpoint_icons) do
-    --   local tp = 'Dap' .. type
-    --   local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
-    --   vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
-    -- end
+    local breakpoint_icons = vim.g.have_nerd_font
+        and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
+      or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
+    local highlights = {
+      Breakpoint = 'DiagnosticError',
+      BreakpointCondition = 'DiagnosticWarn',
+      BreakpointRejected = 'DiagnosticHint',
+      LogPoint = 'DiagnosticInfo',
+      Stopped = 'DiagnosticOk',
+    }
+
+    vim.api.nvim_set_hl(0, 'DapStoppedLine', { link = 'Visual' })
+    vim.fn.sign_define('DapStopped', {
+      text = breakpoint_icons.Stopped,
+      texthl = highlights.Stopped,
+      linehl = 'DapStoppedLine',
+      numhl = highlights.Stopped,
+    })
+
+    if not vim.g._dap_signs_defined then
+      for type, icon in pairs(breakpoint_icons) do
+        vim.fn.sign_define('Dap' .. type, {
+          text = icon,
+          texthl = highlights[type],
+          numhl = highlights[type],
+        })
+      end
+      vim.g._dap_signs_defined = true
+    end
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
+    -- Setup the virtual text
+    require('nvim-dap-virtual-text').setup {}
+
     -- Install golang specific config
-    require('dap-go').setup {
-      delve = {
-        -- On Windows delve must be run attached or it crashes.
-        -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-        detached = vim.fn.has 'win32' == 0,
-      },
-    }
+    -- require('dap-go').setup {
+    --   delve = {
+    --     -- On Windows delve must be run attached or it crashes.
+    --     -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
+    --     detached = vim.fn.has 'win32' == 0,
+    --   },
+    -- }
   end,
 }
