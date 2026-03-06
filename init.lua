@@ -867,6 +867,8 @@ require('lazy').setup({
 
           -- Load Lua snippets from lua/snippets/**
           require('luasnip.loaders.from_lua').lazy_load { paths = vim.fn.stdpath 'config' .. '/lua/snippets' }
+          ls.filetype_extend('typescript', { 'typescript' })
+          ls.filetype_extend('typescriptreact', { 'typescript' })
 
           -- Optional: reload snippets on save
           vim.api.nvim_create_autocmd('BufWritePost', {
