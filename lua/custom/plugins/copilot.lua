@@ -1,6 +1,7 @@
 return {
   {
     'zbirenbaum/copilot.lua',
+    enabled = false,
     build = ':Copilot auth',
     event = 'InsertEnter',
     config = function()
@@ -21,6 +22,7 @@ return {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
     branch = 'main',
+    enabled = false,
     dependencies = {
       'zbirenbaum/copilot.lua',
       'nvim-lua/plenary.nvim',

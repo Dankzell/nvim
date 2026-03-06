@@ -25,7 +25,7 @@ return {
 
           complete_function_calls = true,
           code_lens = 'off',
-          jsx_close_tag = { enable = false, filetypes = { 'typescriptreact', 'javascriptreact' } },
+          jsx_close_tag = { enable = true, filetypes = { 'typescriptreact', 'typescript', 'javascriptreact' } },
         },
 
         on_attach = function(client, bufnr)
