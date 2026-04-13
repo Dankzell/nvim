@@ -182,6 +182,9 @@ vim.o.confirm = true
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Unmap <C-t> (tag stack jump back) so toggleterm can use it
+vim.keymap.set('n', '<C-t>', '<Nop>', { noremap = true })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 -- vim.keymap.set('n', '<C-k>', function()
@@ -603,7 +606,7 @@ require('lazy').setup({
 
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
-          --  To jump back, press <C-t>.
+          --  To jump back, press <C-o>.
           map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           -- TODO: add hover for lsp actions
           -- WARN: This is not Goto Definition, this is Goto Declaration.
