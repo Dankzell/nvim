@@ -48,7 +48,7 @@ return {
     lazy = false,
     build = ':TSUpdate',
     config = function()
-      require('nvim-treesitter.configs').setup {
+      require('nvim-treesitter').setup {
         ensure_installed = {
           'bash',
           'c',
@@ -71,18 +71,8 @@ return {
           'arduino',
           'cmake',
         },
-        sync_install = false,
         auto_install = true,
-        highlight = {
-          enable = true,
-        },
       }
-
-      vim.api.nvim_create_autocmd('FileType', {
-        callback = function(args)
-          pcall(vim.treesitter.start, args.buf)
-        end,
-      })
     end,
   },
   {
