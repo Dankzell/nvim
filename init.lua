@@ -235,6 +235,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- local function first_executable(candidates)
+--   for _, exe in ipairs(candidates) do
+--     local path = vim.fn.exepath(exe)
+--     if path ~= nil and path ~= '' then
+--       return path
+--     end
+--   end
+-- end
+--
+-- local shell = first_executable { 'zsh', 'bash', 'zsh.exe', 'bash.exe' }
+--
+-- if shell then
+--   vim.opt.shell = shell
+--
+--   -- ALWAYS set these for bash/zsh
+--   vim.opt.shellcmdflag = '-c'
+--   vim.opt.shellquote = ''
+--   vim.opt.shellxquote = ''
+-- end
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
