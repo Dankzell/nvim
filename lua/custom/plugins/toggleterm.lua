@@ -42,7 +42,7 @@ return {
 
         on_open = function(term)
           -- Easier to leave terminal mode and move around
-          vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { buffer = term.bufnr, silent = true })
+          -- vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { buffer = term.bufnr, silent = true })
           vim.keymap.set('t', 'jk', [[<C-\><C-n>]], { buffer = term.bufnr, silent = true })
 
           -- Window navigation from terminal mode
