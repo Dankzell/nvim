@@ -48,6 +48,7 @@ return {
     lazy = false,
     build = ':TSUpdate',
     config = function()
+      require('nvim-treesitter.install').ts_generate_args = { 'generate', '--abi', tostring(vim.treesitter.language_version) }
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
           'bash',

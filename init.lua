@@ -126,6 +126,13 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
+-- Keep a stable Neovim server name for Sioyek/VimTeX inverse search.
+local vimtex_state_dir = vim.fn.stdpath 'state' .. '/vimtex'
+local vimtex_server_name = vimtex_state_dir .. '/server-' .. vim.fn.getpid()
+vim.fn.mkdir(vimtex_state_dir, 'p')
+pcall(vim.fn.serverstart, vimtex_server_name)
+vim.fn.writefile({ vimtex_server_name }, vimtex_state_dir .. '/server')
+
 -- Enable break indent
 vim.o.showbreak = '↪'
 vim.o.breakindent = true

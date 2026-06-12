@@ -5,9 +5,25 @@ return {
     -- tag = "v2.15", -- uncomment to pin to a specific release
     init = function()
       vim.g.vimtex_compiler_method = 'latexmk'
-      vim.g.vimtex_view_method = 'zathura'
-      vim.g.vimtex_view_sioyek_exe = 'zathura'
-      -- vim.g.vimtex_callback_progpath = 'wsl nvim'
+      vim.g.vimtex_compiler_latexmk = {
+        options = {
+          '-xelatex',
+          '-shell-escape',
+          '-verbose',
+          '-file-line-error',
+          '-synctex=1',
+          '-interaction=nonstopmode',
+        },
+      }
+      vim.g.vimtex_compiler_latexmk_engines = {
+        _ = '-xelatex',
+        pdflatex = '-pdf',
+        lualatex = '-lualatex',
+        xelatex = '-xelatex',
+      }
+      vim.g.vimtex_view_method = 'sioyek'
+      vim.g.vimtex_view_sioyek_exe = 'sioyek'
+      vim.g.vimtex_callback_progpath = 'wsl.exe -e ' .. vim.env.HOME .. '/.local/bin/vimtex-inverse-search'
 
       vim.g.vimtex_quickfix_mode = 0
       vim.g.vimtex_mappings_enabled = 1
