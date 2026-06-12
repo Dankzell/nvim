@@ -758,6 +758,10 @@ require('lazy').setup({
             },
           },
         },
+        ltex = {
+          filetypes = { 'markdown', 'text', 'tex', 'gitcommit' },
+          flags = { debounce_text_changes = 300 },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -966,6 +970,16 @@ require('lazy').setup({
         end,
       },
       'folke/lazydev.nvim',
+      {
+        'saghen/blink.compat',
+        version = '*',
+        lazy = true,
+        opts = {},
+      },
+      {
+        'micangl/cmp-vimtex',
+        dependencies = { 'saghen/blink.compat' },
+      },
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -1011,9 +1025,13 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'vimtex' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          vimtex = {
+            name = 'vimtex',
+            module = 'blink.compat.source',
+          },
         },
       },
 
