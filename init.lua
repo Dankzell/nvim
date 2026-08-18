@@ -464,6 +464,8 @@ require('lazy').setup({
             n = {
               ['<C-j>'] = require('telescope.actions').move_selection_next,
               ['<C-k>'] = require('telescope.actions').move_selection_previous,
+              ['<C-s>'] = require('telescope.actions').file_vsplit,
+              ['<C-h>'] = require('telescope.actions').file_split,
             },
           },
         },

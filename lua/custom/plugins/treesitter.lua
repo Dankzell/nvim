@@ -1,46 +1,7 @@
--- return {
---   {
---     'nvim-treesitter/nvim-treesitter',
---     build = ':TSUpdate',
---     config = function()
---       require('nvim-treesitter').setup {}
---
---       require('nvim-treesitter').install {
---         'bash',
---         'c',
---         'dockerfile',
---         'yaml',
---         'cpp',
---         'css',
---         'diff',
---         'html',
---         'lua',
---         'luadoc',
---         'markdown',
---         'markdown_inline',
---         'javascript',
---         'typescript',
---         'query',
---         'vim',
---         'vimdoc',
---         'python',
---         'arduino',
---         'cmake',
---       }
---
---       -- Enable treesitter highlighting for all filetypes
---       vim.api.nvim_create_autocmd('FileType', {
---         callback = function(args)
---           pcall(vim.treesitter.start, args.buf)
---         end,
---       })
---     end,
---   },
---   {
---     'nvim-treesitter/nvim-treesitter-context',
---     opts = {},
---   },
--- }
+-- NOTE: nvim-treesitter's `main` branch (the full rewrite) requires Neovim
+-- 0.12+ (nightly) -- see https://github.com/nvim-treesitter/nvim-treesitter.
+-- We're on stable Neovim 0.11, so we pin to the `master` branch instead,
+-- which the upstream README keeps around specifically for 0.11 compatibility.
 return {
   {
     'nvim-treesitter/nvim-treesitter',
