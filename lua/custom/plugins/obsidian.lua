@@ -1,6 +1,7 @@
 return {
   'obsidian-nvim/obsidian.nvim',
   version = '*', -- use latest release, remove to use latest commit
+  ft = { 'markdown' },
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
